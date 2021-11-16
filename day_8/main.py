@@ -7,7 +7,7 @@ class Instruction:
     argument: int
 
     def get(self):
-        return (self.operation, self.argument)
+        return self.operation, self.argument
 
 
 class Computer:
@@ -18,23 +18,19 @@ class Computer:
         self.instruction_register = None
         self.halt = False
 
-
     def print_state(self):
         print(f"{self.program_counter = }\n{self.accumulator = }")
- 
 
     def load_program(self, program):
         self.program = program
         print("Program loaded.")
 
-
     def fetch(self):
         try:
-            if self.halt == False:
+            if not self.halt:
                 self.instruction_register = self.program[self.program_counter]
         except IndexError:
             self.instruction_register = Instruction('hlt', -1)
-
 
     def execute(self):
         try:
@@ -56,15 +52,14 @@ class Computer:
             print("Invalid opcode")
             raise
 
-
-    def run_program(self, step = False):
-        while self.halt == False:
+    def run_program(self, step=False):
+        while not self.halt:
             self.fetch()
             self.execute()
-            if step == True:
-                #self.print_state()  # debug
+            if step:
+                # self.print_state()  # debug
                 return
-        
+
         print("Final State:")
         self.print_state()
 
@@ -75,20 +70,21 @@ class Computer:
 
 
 def parse_input():
-        with open('input.txt') as file:
-            program = [Instruction(operation, int(argument)) for operation, argument in (line.strip().split(' ') for line in file)]
+    with open('input.txt') as file:
+        program = [Instruction(operation, int(argument)) for operation, argument in
+                   (line.strip().split(' ') for line in file)]
 
-        #print(f"{program = }")  # debug
-        return program
+    # print(f"{program = }")  # debug
+    return program
 
 
 def run(computer):
     repetitions = set()
 
     while True:
-        computer.run_program(step = True)
-        
-        if computer.halt == True:
+        computer.run_program(step=True)
+
+        if computer.halt:
             print("\nHalt final accumulator value =", computer.accumulator)
             break
         if computer.program_counter in repetitions:
@@ -97,7 +93,7 @@ def run(computer):
         else:
             repetitions.add(computer.program_counter)
 
-        #input()
+        # input()
 
     return computer
 
@@ -116,7 +112,7 @@ def main():
             computer.program[index].operation = 'nop'
 
             computer = run(computer)
-            if computer.halt == True:
+            if computer.halt:
                 break
 
             computer.reset()
@@ -126,13 +122,11 @@ def main():
             computer.program[index].operation = 'jmp'
 
             computer = run(computer)
-            if computer.halt == True:
+            if computer.halt:
                 break
 
             computer.reset()
             computer.program[index].operation = 'nop'
-
-
 
 
 if __name__ == '__main__':
