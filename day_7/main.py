@@ -119,11 +119,11 @@ def main():
     means the target bag is inside one or more bags which are inside the
     containing bag.
     """
-
     target_bag: Node = Node(args.target)
-
     lines = read_input()
     tree = create_tree(lines)
+    if target_bag not in tree.nodes:
+        raise LookupError("Bag not found.")
     holding_bags_set = find_holding_bags(target_bag, tree.relations)
     count = count_child_nodes(target_bag, tree.relations)
 

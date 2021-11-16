@@ -4,6 +4,7 @@
     <list default="true" id="9179d4b4-d20e-43a8-be19-8c41cce747ce" name="Changes" comment="day_7 refactor 2&#10;added argparse functionality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/day_7/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/day_7/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/day_7/part_2_test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/day_7/part_2_test.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,10 +12,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" show_ignored="true" />
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="day_7_alternate_input_parsing" />
+    <option name="OPTIONS">
+      <set>
+        <option value="COMMIT_MESSAGE" />
+      </set>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="refactoring" />
+        <entry key="$PROJECT_DIR$" value="day_7_alternate_input_parsing" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -165,7 +174,21 @@
       <option name="project" value="LOCAL" />
       <updated>1637075420593</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="jello world">
+      <created>1637082922428</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1637082922428</updated>
+    </task>
+    <task id="LOCAL-00019" summary="yellow world">
+      <created>1637082957334</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1637082957334</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -173,19 +196,7 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="refactoring" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
@@ -195,6 +206,16 @@
         <entry key="Branch">
           <value>
             <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="refactoring" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="day_7_alternate_input_parsing" />
+                </option>
+              </RecentGroup>
               <RecentGroup>
                 <option name="FILTER_VALUES">
                   <option value="master" />
@@ -225,6 +246,8 @@
     <MESSAGE value="day_9 refactor 1" />
     <MESSAGE value="day_10 refactor 1" />
     <MESSAGE value="day_7 refactor 2&#10;added argparse functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="day_7 refactor 2&#10;added argparse functionality" />
+    <MESSAGE value="jello world" />
+    <MESSAGE value="yellow world" />
+    <option name="LAST_COMMIT_MESSAGE" value="yellow world" />
   </component>
 </project>
