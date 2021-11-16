@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9179d4b4-d20e-43a8-be19-8c41cce747ce" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/day_7/part_1_test.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/day_7/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/day_7/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/day_7/part_1/input.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/day_7/part_1/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/day_7/part_2/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/day_7/test.txt" afterDir="false" />
-    </list>
+    <list default="true" id="9179d4b4-d20e-43a8-be19-8c41cce747ce" name="Changes" comment="day_7 refactor 1.1&#10;changed test.txt -&gt; part_2_test.txt" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -112,7 +106,28 @@
       <option name="project" value="LOCAL" />
       <updated>1637023710771</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="day_7 refactor 1">
+      <created>1637066263178</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1637066263178</updated>
+    </task>
+    <task id="LOCAL-00011" summary="day_7 refactor 1">
+      <created>1637066441795</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1637066441795</updated>
+    </task>
+    <task id="LOCAL-00012" summary="day_7 refactor 1.1&#10;changed test.txt -&gt; part_2_test.txt">
+      <created>1637066745081</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1637066745081</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -134,6 +149,8 @@
     <MESSAGE value=".gitignore test" />
     <MESSAGE value=".gitignore removed *.txt" />
     <MESSAGE value=".idea/.gitignore removed *~" />
-    <option name="LAST_COMMIT_MESSAGE" value=".idea/.gitignore removed *~" />
+    <MESSAGE value="day_7 refactor 1" />
+    <MESSAGE value="day_7 refactor 1.1&#10;changed test.txt -&gt; part_2_test.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="day_7 refactor 1.1&#10;changed test.txt -&gt; part_2_test.txt" />
   </component>
 </project>
