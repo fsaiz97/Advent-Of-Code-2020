@@ -1,10 +1,11 @@
 from collections import deque
 import itertools
 
+
 def main():
     with open("input.txt") as file:
         buffer_size = int(file.readline())
-        buffer = deque(maxlen = buffer_size)
+        buffer = deque(maxlen=buffer_size)
 
         for _ in range(buffer_size):
             buffer.append(int(file.readline()))
@@ -22,7 +23,7 @@ def main():
                 break
 
     with open("input.txt") as file:
-        buffer_size = file.readline()
+        _ = file.readline()
         input_ = [int(line) for line in file]
 
     for i in range(len(input_)):
@@ -30,7 +31,7 @@ def main():
         for j in range(i + 1, len(input_)):
             sum_ += input_[j]
             if sum_ == part_1:
-                summands = input_[i:j+1]
+                summands = input_[i:j + 1]
                 print("part 2 =", min(summands) + max(summands))
                 break
         else:

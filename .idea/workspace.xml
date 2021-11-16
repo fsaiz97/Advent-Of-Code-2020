@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9179d4b4-d20e-43a8-be19-8c41cce747ce" name="Changes" comment="day_7 refactor 1.1&#10;changed test.txt -&gt; part_2_test.txt">
+    <list default="true" id="9179d4b4-d20e-43a8-be19-8c41cce747ce" name="Changes" comment="day_8 refactor 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/day_8/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/day_8/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/day_9/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/day_9/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637066904227</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="day_8 refactor 1">
+      <created>1637067973092</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1637067973092</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -161,6 +168,7 @@
     <MESSAGE value=".idea/.gitignore removed *~" />
     <MESSAGE value="day_7 refactor 1" />
     <MESSAGE value="day_7 refactor 1.1&#10;changed test.txt -&gt; part_2_test.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="day_7 refactor 1.1&#10;changed test.txt -&gt; part_2_test.txt" />
+    <MESSAGE value="day_8 refactor 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="day_8 refactor 1" />
   </component>
 </project>
