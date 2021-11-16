@@ -2,7 +2,7 @@ import re
 from dataclasses import dataclass
 import argparse
 
-
+# creates an argument parser to take cli arguments
 parser = argparse.ArgumentParser(description="Solves Advent of Code 2020 day 7.")
 parser.add_argument('input', help="the input file to read from")
 parser.add_argument('target', help="the bag that the puzzle is solved for")
@@ -11,8 +11,7 @@ args = parser.parse_args()
 
 @dataclass
 class Node:
-    """Creates a node object with an arbitrary number of children and depth first search.
-    """
+    """Creates a node object with an arbitrary number of children and depth first search."""
     colour: str
 
 
@@ -35,44 +34,48 @@ class Tree:
 
 
 def read_input():
-    """Read and parse the input."""
+    """Read the input and split each line into a bag and its contents."""
     with open(args.input) as file:
-        regex = re.compile("(?P<colour>[a-z]+ [a-z]+) bags contain (?P<contents>[^.]+)")
+        temp = [line.split('contain') for line in file]
+        lines = [[line[0].strip(), line[1].strip()] for line in temp]
+        # print(lines[:10])  # debug
+        # print(f"{len(lines) = }")  # debug
 
-        input_matches = [regex.match(line) for line in file]
-        print(f"{len(input_matches) = }")
-
-    return input_matches
+    return lines
 
 
-def parse_bag_contents(line_match):
-    """Reads the bag contents."""
-    regex = re.compile(r"(?P<quantity>\d+) (?P<colour>[a-z]+ [a-z]+)")
+def parse_bag_contents(raw_contents, regex):
+    """Parses the bag contents to extract the quantity and colour of each contained bag."""
 
-    if line_match.group('contents') == "no other bags":
+    if raw_contents == "no other bags.":
         return []
     else:
-        contents = [string.strip() for string in line_match.group('contents').split(',')]
+        contents = [string.strip() for string in raw_contents.split(',')]
         # print("contents: ", contents) # debug
         content_matches = [regex.match(content) for content in contents]
         return content_matches
 
 
-def create_tree(input_matches):
+def create_tree(lines):
     """Creates a tree of bags and their contents."""
     nodes = []
     relations = []
+    regex = re.compile(r"(?P<quantity>\d+)?(\s+)?(?P<colour>[a-z]+ [a-z]+)")
 
-    for match in input_matches:
-        if match is not None:
-            bag = Node(match.group('colour'))
-            # print(f"{bag = }") # debug
-            nodes.append(bag)
+    for line in lines:
+        match = regex.match(line[0])
+        if not match:
+            raise Exception
+        # print("Groups:", match.groups())  # debug
+        bag = Node(match.group('colour'))
+        # print(f"{bag = }") # debug
+        nodes.append(bag)
 
-            content_matches = parse_bag_contents(match)
-            for content_match in content_matches:
-                child = Node(content_match.group('colour'))
-                relations.append(Relation(bag, child, int(content_match.group('quantity'))))
+        content_matches = parse_bag_contents(line[1], regex)
+
+        for content_match in content_matches:
+            child = Node(content_match.group('colour'))
+            relations.append(Relation(bag, child, int(content_match.group('quantity'))))
 
     # print(f"{nodes = }\n{relations = }")
 
@@ -80,24 +83,30 @@ def create_tree(input_matches):
 
 
 def find_holding_bags(bag, relations, holding_bags_set=set()):
-    print(f"{bag = }")
-    filtered = [relation for relation in relations if relation.child.colour == bag.colour]
-    print("Parents:", [relation.parent.colour for relation in filtered])  # debug
+    """Answers part 1 by counting all bags which can hold the target bag.
+    Uses recursion to explore all ancestors of the target bag in a depth first search"""
+    # print(f"{bag = }")  # debug
+    filtered = [relation for relation in relations if relation.child == bag]
+    # print("Parents:", [relation.parent.colour for relation in filtered])  # debug
     for relation in filtered:
         holding_bags_set = find_holding_bags(relation.parent, relations, holding_bags_set)
 
     if bag.colour != args.target:
+        # prevents the first level of recursion from adding the target bag
+        # to the set of bags which can hold it
         holding_bags_set.add(bag.colour)
 
     return holding_bags_set
 
 
 def count_child_nodes(bag, relations, multiplier=1, count=0):
+    """Counts the total number of bags held by the target bag"""
     for relation in relations:
         if relation.parent == bag:
             count = count_child_nodes(relation.child, relations, multiplier * relation.weight, count)
 
     if bag.colour != args.target:
+        # prevents the target bag from being counted in the bags it can hold
         count += multiplier
 
     return count
@@ -113,15 +122,13 @@ def main():
 
     target_bag: Node = Node(args.target)
 
-    input_matches = read_input(
-
-    )
-    tree = create_tree(input_matches)
+    lines = read_input()
+    tree = create_tree(lines)
     holding_bags_set = find_holding_bags(target_bag, tree.relations)
     count = count_child_nodes(target_bag, tree.relations)
 
-    print("Answer:", len(holding_bags_set))
-    print(f"Contents count for {target_bag} =", count)
+    print("Part 1 Answer:", len(holding_bags_set))
+    print(f"Part 2 Answer:", count)
 
 
 if __name__ == '__main__':

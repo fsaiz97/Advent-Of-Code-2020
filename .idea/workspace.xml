@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9179d4b4-d20e-43a8-be19-8c41cce747ce" name="Changes" comment="day_10 refactor 1">
+    <list default="true" id="9179d4b4-d20e-43a8-be19-8c41cce747ce" name="Changes" comment="day_7 refactor 2&#10;added argparse functionality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/day_7/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/day_7/main.py" afterDir="false" />
     </list>
@@ -14,7 +14,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="refactoring" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -158,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637068206341</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="day_7 refactor 2&#10;added argparse functionality">
+      <created>1637075420593</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1637075420593</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -166,7 +173,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="refactoring" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -205,6 +224,7 @@
     <MESSAGE value="day_8 refactor 1" />
     <MESSAGE value="day_9 refactor 1" />
     <MESSAGE value="day_10 refactor 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="day_10 refactor 1" />
+    <MESSAGE value="day_7 refactor 2&#10;added argparse functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="day_7 refactor 2&#10;added argparse functionality" />
   </component>
 </project>
