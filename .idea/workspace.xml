@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9179d4b4-d20e-43a8-be19-8c41cce747ce" name="Changes" comment="day_9 refactor 1">
-      <change beforePath="$PROJECT_DIR$/day_10/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/day_10/main.py" afterDir="false" />
+    <list default="true" id="9179d4b4-d20e-43a8-be19-8c41cce747ce" name="Changes" comment="day_10 refactor 1">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/day_7/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/day_7/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +151,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637068145093</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="day_10 refactor 1">
+      <created>1637068206341</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1637068206341</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -159,6 +167,26 @@
         <entry key="MAIN">
           <value>
             <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="master" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="HEAD" />
+                </option>
+              </RecentGroup>
+            </list>
           </value>
         </entry>
       </map>
@@ -176,6 +204,7 @@
     <MESSAGE value="day_7 refactor 1.1&#10;changed test.txt -&gt; part_2_test.txt" />
     <MESSAGE value="day_8 refactor 1" />
     <MESSAGE value="day_9 refactor 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="day_9 refactor 1" />
+    <MESSAGE value="day_10 refactor 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="day_10 refactor 1" />
   </component>
 </project>

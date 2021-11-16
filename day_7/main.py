@@ -1,8 +1,12 @@
 import re
-from collections import deque
 from dataclasses import dataclass
+import argparse
 
-TARGET_COLOUR = "shiny gold"
+
+parser = argparse.ArgumentParser(description="Solves Advent of Code 2020 day 7.")
+parser.add_argument('input', help="the input file to read from")
+parser.add_argument('target', help="the bag that the puzzle is solved for")
+args = parser.parse_args()
 
 
 @dataclass
@@ -32,7 +36,7 @@ class Tree:
 
 def read_input():
     """Read and parse the input."""
-    with open("input.txt") as file:
+    with open(args.input) as file:
         regex = re.compile("(?P<colour>[a-z]+ [a-z]+) bags contain (?P<contents>[^.]+)")
 
         input_matches = [regex.match(line) for line in file]
@@ -82,7 +86,7 @@ def find_holding_bags(bag, relations, holding_bags_set=set()):
     for relation in filtered:
         holding_bags_set = find_holding_bags(relation.parent, relations, holding_bags_set)
 
-    if bag.colour != TARGET_COLOUR:
+    if bag.colour != args.target:
         holding_bags_set.add(bag.colour)
 
     return holding_bags_set
@@ -93,7 +97,7 @@ def count_child_nodes(bag, relations, multiplier=1, count=0):
         if relation.parent == bag:
             count = count_child_nodes(relation.child, relations, multiplier * relation.weight, count)
 
-    if bag.colour != TARGET_COLOUR:
+    if bag.colour != args.target:
         count += multiplier
 
     return count
@@ -107,9 +111,11 @@ def main():
     containing bag.
     """
 
-    target_bag: Node = Node(TARGET_COLOUR)
+    target_bag: Node = Node(args.target)
 
-    input_matches = read_input()
+    input_matches = read_input(
+
+    )
     tree = create_tree(input_matches)
     holding_bags_set = find_holding_bags(target_bag, tree.relations)
     count = count_child_nodes(target_bag, tree.relations)
