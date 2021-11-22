@@ -1,7 +1,5 @@
 import itertools
 import argparse
-from trees import Node, Relation, Tree
-from collections import deque
 
 
 parser = argparse.ArgumentParser(description="Takes the input file as an argument")
@@ -24,45 +22,39 @@ def old_slow_count_paths(current, adapters, count=0):
     return count
 
 
-def find_fixed_runs(tree):
+def find_fixed_runs(adapters):
     runs = []
     curr_run = []
     capture_flg = True  # starts capturing from 0
-    active_nodes = [tree.nodes[0]]
+    for index, adapter in enumerate(adapters):
+        if capture_flg:
+            curr_run.append(adapter)
 
-    while True:
-        #print(f"{active_nodes = }\n")  # debug
-
-        if len(active_nodes) == 0:
-            runs.append(curr_run)
-            print("last run:", curr_run)
-            break
-        elif len(active_nodes) == 1:
-            capture_flg = True
-            curr_run.append(active_nodes[0].data)
-        elif len(active_nodes) > 1 and capture_flg == True:
-            print(f"{curr_run = }")  # debug
-            runs.append(curr_run.copy())
-            curr_run.clear()
-            capture_flg = False
-
-        for child in tree.find_children(active_nodes[0]):
-            if child not in active_nodes:
-                active_nodes.append(child)
-        active_nodes.pop(0) 
+            # if there are multiple choices for the next adapter
+            if (index >= len(adapters) - 2) or (adapters[index+2] in range(adapter+1, adapter+4)):
+                print(index)
+                print(adapters[index+2])
+                runs.append(curr_run)
+                print(f"{curr_run = }")
+                curr_run.clear()
+                capture_flg == False
+        else:
+            # if the previous adapter in sequence doesnt have multiple adapters it can connect to next
+            prev = adapter[index-1]
+            if (index == len(adapters) - 1) or (adapter[index+1] not in range(prev+1, prev+4)):
+                capture_flg = True
+                curr_run.append(adapter)
 
     return runs
 
 
 def fast_count_paths(adapters, runs):
-    print(f"{runs = }")
     count = 1
     for index, run in enumerate(runs):
         if index != len(runs) - 1:
             print(f"{run = }")
-            count *= slow_count_paths(run[-1], adapters, end = runs[index+1][0])
-            print(f"{run[-1] = }, {runs[index+1][0] = }")
-            print(f"{count = }")
+            count *= slow_count_paths(run[-1], adapters, runs[index+1][0])
+            print(f"{run[-1] = }")
 
     return count
 
@@ -72,26 +64,14 @@ def slow_count_paths(current, adapters, count=0, end=None):
         if next_ not in adapters:
             continue
 
-        if next_ == end:
+        if next_ == end :
             count += 1
             break
         else:
-            count = slow_count_paths(next_, adapters, count, end)
+            count = count_paths(next_, adapters, count)
 
-    print(f"For {current}, {count =}")  # debug
+        #  print(f"For {current}, {count =}")  # debug
     return count
-
-
-def create_tree(adapters):
-    nodes = [Node(adapter) for adapter in adapters]
-
-    relations = []
-    for node in nodes:
-        children = [num for num in range(node.data+1, node.data+4) if num in adapters]
-        for child in children:
-            relations.append(Relation(node, Node(child)))
-
-    return Tree(nodes, relations)
 
 
 def main():
@@ -114,8 +94,7 @@ def main():
     print(results)
     print("part 1 answer:", results[1] * results[3])
 
-    tree = create_tree(adapters)
-    runs = find_fixed_runs(tree)
+    runs = find_fixed_runs(adapters)
 
     count = fast_count_paths(adapters, runs)
 

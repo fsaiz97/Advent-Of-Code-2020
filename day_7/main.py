@@ -1,36 +1,13 @@
 import re
-from dataclasses import dataclass
 import argparse
+from ..package import trees
+
 
 # creates an argument parser to take cli arguments
 parser = argparse.ArgumentParser(description="Solves Advent of Code 2020 day 7.")
 parser.add_argument('input', help="the input file to read from")
 parser.add_argument('target', help="the bag that the puzzle is solved for")
 args = parser.parse_args()
-
-
-@dataclass
-class Node:
-    """Creates a node object with an arbitrary number of children and depth first search."""
-    colour: str
-
-
-@dataclass
-class Relation:
-    """Creates a directed link between a parent Node and a child Node, along with a weight.
-    """
-    parent: Node
-    child: Node
-    weight: int
-
-
-@dataclass
-class Tree:
-    """Represents a tree data structure with a list of Node objects
-    and a set of Relations between nodes in the node list
-    """
-    nodes: list[Node]
-    relations: list[Relation]
 
 
 def read_input():
