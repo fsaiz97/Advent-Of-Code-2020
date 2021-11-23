@@ -1,6 +1,6 @@
 import re
 import argparse
-from ..package import trees
+from .common import trees
 
 
 # creates an argument parser to take cli arguments
