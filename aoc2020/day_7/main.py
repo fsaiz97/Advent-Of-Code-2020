@@ -1,6 +1,6 @@
 import re
 import argparse
-from .common import trees
+from aoc2020.common.trees import Node, Relation, Tree
 
 
 # creates an argument parser to take cli arguments
@@ -106,7 +106,6 @@ def main():
 
     print("Part 1 Answer:", len(holding_bags_set))
     print(f"Part 2 Answer:", count)
-
 
 if __name__ == '__main__':
     main()
