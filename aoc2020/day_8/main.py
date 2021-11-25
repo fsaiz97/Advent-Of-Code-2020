@@ -74,7 +74,7 @@ class Computer:
         self.print_state()
 
     def reset(self):
-        "Resets the computer to the initial state."
+        """Resets the computer to the initial state."""
         self.accumulator = 0
         self.program_counter = 0
         self.halt = False

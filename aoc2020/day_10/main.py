@@ -1,8 +1,6 @@
 import itertools
 import argparse
 from trees import Node, Relation, Tree
-from collections import deque
-
 
 parser = argparse.ArgumentParser(description="Takes the input file as an argument")
 parser.add_argument('input', help="Stores the input text file.")
@@ -10,7 +8,7 @@ args = parser.parse_args()
 
 
 def old_slow_count_paths(current, adapters, count=0):
-    for next_ in range(current+1, current+4):
+    for next_ in range(current + 1, current + 4):
         if next_ not in adapters:
             continue
 
@@ -18,7 +16,7 @@ def old_slow_count_paths(current, adapters, count=0):
             count += 1
             break
         else:
-            count = count_paths(next_, adapters, count)
+            count = old_slow_count_paths(next_, adapters, count)
 
         print(f"For {current}, {count =}")
     return count
@@ -31,7 +29,7 @@ def find_fixed_runs(tree):
     active_nodes = [tree.nodes[0]]
 
     while True:
-        #print(f"{active_nodes = }\n")  # debug
+        # print(f"{active_nodes = }\n")  # debug
 
         if len(active_nodes) == 0:
             runs.append(curr_run)
@@ -40,7 +38,7 @@ def find_fixed_runs(tree):
         elif len(active_nodes) == 1:
             capture_flg = True
             curr_run.append(active_nodes[0].data)
-        elif len(active_nodes) > 1 and capture_flg == True:
+        elif len(active_nodes) > 1 and capture_flg:
             print(f"{curr_run = }")  # debug
             runs.append(curr_run.copy())
             curr_run.clear()
@@ -49,7 +47,7 @@ def find_fixed_runs(tree):
         for child in tree.find_children(active_nodes[0]):
             if child not in active_nodes:
                 active_nodes.append(child)
-        active_nodes.pop(0) 
+        active_nodes.pop(0)
 
     return runs
 
@@ -60,7 +58,7 @@ def fast_count_paths(adapters, runs):
     for index, run in enumerate(runs):
         if index != len(runs) - 1:
             print(f"{run = }")
-            count *= slow_count_paths(run[-1], adapters, end = runs[index+1][0])
+            count *= slow_count_paths(run[-1], adapters, end=runs[index + 1][0])
             print(f"{run[-1] = }, {runs[index+1][0] = }")
             print(f"{count = }")
 
@@ -68,7 +66,7 @@ def fast_count_paths(adapters, runs):
 
 
 def slow_count_paths(current, adapters, count=0, end=None):
-    for next_ in range(current+1, current+4):
+    for next_ in range(current + 1, current + 4):
         if next_ not in adapters:
             continue
 
@@ -87,7 +85,7 @@ def create_tree(adapters):
 
     relations = []
     for node in nodes:
-        children = [num for num in range(node.data+1, node.data+4) if num in adapters]
+        children = [num for num in range(node.data + 1, node.data + 4) if num in adapters]
         for child in children:
             relations.append(Relation(node, Node(child)))
 

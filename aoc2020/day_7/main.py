@@ -59,10 +59,12 @@ def create_tree(lines):
     return Tree(nodes, relations)
 
 
-def find_holding_bags(bag, relations, holding_bags_set=set()):
+def find_holding_bags(bag, relations, holding_bags_set=None):
     """Answers part 1 by counting all bags which can hold the target bag.
     Uses recursion to explore all ancestors of the target bag in a depth first search"""
     # print(f"{bag = }")  # debug
+    if holding_bags_set is None:
+        holding_bags_set = set()
     filtered = [relation for relation in relations if relation.child == bag]
     # print("Parents:", [relation.parent.colour for relation in filtered])  # debug
     for relation in filtered:
@@ -106,6 +108,7 @@ def main():
 
     print("Part 1 Answer:", len(holding_bags_set))
     print(f"Part 2 Answer:", count)
+
 
 if __name__ == '__main__':
     main()

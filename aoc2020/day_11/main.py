@@ -1,10 +1,5 @@
 import argparse
-frok dataclasses import dataclass
-
-
-parser = argparse.ArgumentParser(description="Takes in the input to day 11")
-parser.add_argument('input', help="Stores the input file name")
-args = parser.parse_args()
+from dataclasses import dataclass
 
 
 @dataclass
@@ -15,37 +10,76 @@ class Point:
 
 def parse_input():
     with open(args.input) as file:
-        area = [list(line.strip()) for line in file]
+        waiting_area = [list(line.strip()) for line in file]
 
-    return area
+    return waiting_area
 
 
-def run(area):
-    position = Point(0, 0)
+def in_range(point, x_bound, y_bound):
+    return (0 <= point.x <= x_bound and 0 <= point.y <= y_bound)
 
-    future = area
+
+def fetch_adjacent(point, waiting_area):
+    width = len(waiting_area[0])
+    height = len(waiting_area)
+
+    adjacent_points = [Point(point.x + i, point.y + j) for i in (-1, 0, 1) for j in (-1, 0, 1) if not (i == 0 and j == 0)]
+    adjacent = [waiting_area[adjacent_point.x][adjacent_point.y] for adjacent_point in adjacent_points if in_range(adjacent_point, width-1, height-1)]
+
+    return adjacent
+
+
+def update_tile(point, waiting_area):
+    """Return the tile's next state based on the rules"""
+    tile = waiting_area[point.x][point.y]
+
+    adjacent = fetch_adjacent(point, waiting_area)
+    occupied = adjacent.count('#')
+    # print(occupied)  # debug
+
+    if tile == 'L':
+        if occupied == 0:
+            return '#'
+        else:
+            return tile
+    elif tile == '#':
+        if occupied >= 4:
+            return 'L'
+        else:
+            return tile
+
+
+def run(waiting_area):
+
+    next_state = waiting_area
 
     while True:
-        for i, line in enumerate(area):
-            for j, tile in enumerate(line):
+        for j, line in enumerate(waiting_area):
+            for i, tile in enumerate(line):
                 if tile == '.':
-                    future
                     continue
                 else:
-                    if check_rules(tile, area):
-                        
-                    else:
-                        pass
+                    next_state[i][j] = update_tile(Point(i,j), waiting_area)
+
+        if next_state == waiting_area:
+            break
+
+        waiting_area = next_state
+
+    print("Part 1 answer =", len([tile for line in waiting_area for tile in line if tile == '#']))
 
 
 def main():
-    area = parse_input()
+    waiting_area = parse_input()
 
-    width = len(area[0])
-    height = len(area)
-
-    run(area)
+    run(waiting_area)
 
 
 if __name__ == '__main__':
+    # setup parser to get input file name
+    parser = argparse.ArgumentParser(description="Takes in the input to day 11")
+    parser.add_argument('input', help="Stores the input file name")
+    args = parser.parse_args()
+
+    # main code
     main()
