@@ -1,5 +1,6 @@
 import argparse
 from dataclasses import dataclass
+import copy
 
 
 @dataclass
@@ -15,8 +16,8 @@ def parse_input():
     return waiting_area
 
 
-def in_range(point, x_bound, y_bound):
-    return (0 <= point.x <= x_bound and 0 <= point.y <= y_bound)
+def in_range(point, width, height):
+    return (0 <= point.x < width and 0 <= point.y < height)
 
 
 def fetch_adjacent(point, waiting_area):
@@ -24,14 +25,14 @@ def fetch_adjacent(point, waiting_area):
     height = len(waiting_area)
 
     adjacent_points = [Point(point.x + i, point.y + j) for i in (-1, 0, 1) for j in (-1, 0, 1) if not (i == 0 and j == 0)]
-    adjacent = [waiting_area[adjacent_point.x][adjacent_point.y] for adjacent_point in adjacent_points if in_range(adjacent_point, width-1, height-1)]
+    adjacent = [waiting_area[adjacent_point.y][adjacent_point.x] for adjacent_point in adjacent_points if in_range(adjacent_point, width, height)]
 
     return adjacent
 
 
 def update_tile(point, waiting_area):
     """Return the tile's next state based on the rules"""
-    tile = waiting_area[point.x][point.y]
+    tile = waiting_area[point.y][point.x]
 
     adjacent = fetch_adjacent(point, waiting_area)
     occupied = adjacent.count('#')
@@ -51,7 +52,7 @@ def update_tile(point, waiting_area):
 
 def run(waiting_area):
 
-    next_state = waiting_area
+    next_state = copy.deepcopy(waiting_area)
 
     while True:
         for j, line in enumerate(waiting_area):
@@ -59,12 +60,14 @@ def run(waiting_area):
                 if tile == '.':
                     continue
                 else:
-                    next_state[i][j] = update_tile(Point(i,j), waiting_area)
+                    next_state[j][i] = update_tile(Point(i,j), waiting_area)
+
+        # print(next_state)  # debug
 
         if next_state == waiting_area:
             break
 
-        waiting_area = next_state
+        waiting_area = copy.deepcopy(next_state)
 
     print("Part 1 answer =", len([tile for line in waiting_area for tile in line if tile == '#']))
 
@@ -83,3 +86,4 @@ if __name__ == '__main__':
 
     # main code
     main()
+
