@@ -1,88 +1,137 @@
 import argparse
-from dataclasses import dataclass
-import copy
+from copy import copy, deepcopy
+import itertools
+import cProfile
+import pstats
+from math import prod
+from typing import Tuple
 
 
-@dataclass
-class Point:
-    x: int
-    y: int
+def add_tuples(a: Tuple, b: Tuple):
+    return tuple(sum(elem) for elem in zip(a, b))
+
+
+def scale_tuple(a: Tuple, m: int):
+    return tuple(elem * m for elem in a)
+
+
+def get_directions(dimension):
+    deltas = [(i, j) for i in (-1, 0, 1) for j in (-1, 0, 1) if not (i == 0 and j == 0)]
+ 
+    counter = itertools.count
+    directions = []
+    for delta in deltas:
+        direction = [scale_tuple(delta, i) for i in range(1, dimension+1)]
+        directions.append(direction)
+
+    return directions
+
+
+def cli_parse():
+    """setup parser to get input file name."""
+    parser = argparse.ArgumentParser(description="Takes in the input to day 11")
+    parser.add_argument('input', help="Stores the input file name")
+    args = parser.parse_args()
+
+    return args
 
 
 def parse_input():
+    """Reads input into a grid"""
     with open(args.input) as file:
-        waiting_area = [list(line.strip()) for line in file]
+        room = [list(line.strip()) for line in file]
 
-    return waiting_area
+    return room
 
 
 def in_range(point, width, height):
-    return (0 <= point.x < width and 0 <= point.y < height)
+    return (0 <= point[0] < width and 0 <= point[1] < height)
 
 
-def fetch_adjacent(point, waiting_area):
-    width = len(waiting_area[0])
-    height = len(waiting_area)
+def check_surroundings(position, room, directions, width, height, distance):
+    count = 0
 
-    adjacent_points = [Point(point.x + i, point.y + j) for i in (-1, 0, 1) for j in (-1, 0, 1) if not (i == 0 and j == 0)]
-    adjacent = [waiting_area[adjacent_point.y][adjacent_point.x] for adjacent_point in adjacent_points if in_range(adjacent_point, width, height)]
+    for direction in directions:
+        for index, offset in enumerate(direction, start=1):
+            # print(offset)
+            if distance is not None and index > distance:
+                break
 
-    return adjacent
+            point = add_tuples(position, offset)
+            # print(point)  # debug
+            if not in_range(point, width, height):
+                break
+
+            tile = room[point[1]][point[0]] 
+            if tile != '.':
+                if tile == '#':
+                    count += 1
+                break
+
+    return count
 
 
-def update_tile(point, waiting_area):
+def update(position, current, directions, width, height):
     """Return the tile's next state based on the rules"""
-    tile = waiting_area[point.y][point.x]
-
-    adjacent = fetch_adjacent(point, waiting_area)
-    occupied = adjacent.count('#')
-    # print(occupied)  # debug
+    tile = current[position[1]][position[0]]
+    occupied = check_surroundings(position, current, directions, width, height, distance = None)
 
     if tile == 'L':
         if occupied == 0:
             return '#'
         else:
-            return tile
+            return None
     elif tile == '#':
-        if occupied >= 4:
+        if occupied >= 5:
             return 'L'
         else:
-            return tile
+            return None
 
+def profile_function(room):
+    width = len(room[0])
+    height = len(room)
 
-def run(waiting_area):
-
-    next_state = copy.deepcopy(waiting_area)
+    directions = get_directions(max(width, height))
 
     while True:
-        for j, line in enumerate(waiting_area):
-            for i, tile in enumerate(line):
+        current = deepcopy(room)
+
+        for y, line in enumerate(current):
+            for x, tile in enumerate(line):
                 if tile == '.':
                     continue
-                else:
-                    next_state[j][i] = update_tile(Point(i,j), waiting_area)
 
-        # print(next_state)  # debug
+                position = (x, y)
+                char = update(position, current, directions, width, height)
+                if char is not None:
+                    room[y][x] = char
 
-        if next_state == waiting_area:
+        # print(room)  # debug
+
+        if room == current:
             break
 
-        waiting_area = copy.deepcopy(next_state)
-
-    print("Part 1 answer =", len([tile for line in waiting_area for tile in line if tile == '#']))
+    return room
 
 
 def main():
-    waiting_area = parse_input()
+    # read input into 2d array
+    room = parse_input()
+    #print(room)  # debug
 
-    run(waiting_area)
+    #update loop
+    with cProfile.Profile() as profile:
+        room = profile_function(room)
+        ps = pstats.Stats(profile)
+        ps.sort_stats('tottime')
+        ps.print_stats()
+
+    occupied = len([tile for line in room for tile in line if tile == '#'])
+    print("Answer =", occupied)
 
 
 if __name__ == '__main__':
-    # setup parser to get input file name
-    parser = argparse.ArgumentParser(description="Takes in the input to day 11")
-    parser.add_argument('input', help="Stores the input file name")
-    args = parser.parse_args()
+    args = cli_parse()
 
     # main code
     main()
