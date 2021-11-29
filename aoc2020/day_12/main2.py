@@ -29,22 +29,24 @@ def round_complex(z):
 class Ship:
     # Positions are represented with complex numbers where the real part is north/south and the imaginary part is east/west.
     # Direction is an compass direction enumerating the corresponsing angle.
-    def __init__(self, position, direction):
+    def __init__(self, position, direction, waypoint):
         self.position = position
         self.direction = direction
+        self.waypoint = waypoint
 
     def update(self, opcode, operand):
         if opcode in ('N', 'E', 'S', 'W'):
-            self.position += get_vector(operand, opcode)
+            self.waypoint += get_vector(operand, opcode)
         elif opcode in ('L', 'R'):
-            angle = Ordinal[self.direction].value
+            angle = math.radians(operand)
+            print(f"{self.direction = } {angle = }")
             if opcode == 'L':
-                angle = (angle - operand) % CIRCLE
+                self.waypoint *= cmath.rect(1, -1 * angle)
             elif opcode == 'R':
-                angle = (angle + operand) % CIRCLE
-            self.direction = Ordinal(angle).name
+                self.waypoint *= cmath.rect(1, angle)
+            self.waypoint = round_complex(self.waypoint)
         elif opcode == 'F':
-            self.position += get_vector(operand, self.direction)
+            self.position += self.waypoint * operand
   
 
 def parse_cli():
@@ -67,13 +69,15 @@ def manhatten(z):
     return abs(z.real) + abs(z.imag) 
 
 def main():
-    ship = Ship(0+0j, 'E')
+    ship = Ship(0+0j, 'E', 1+10j)
 
     instructions = parse_input()
 
     for instruction in instructions:
+        print(ship.position, ship.waypoint)
         ship.update(instruction[0], instruction[1])
 
+    print(ship.position)
     print("Final position =", int(manhatten(ship.position)))
 
 
